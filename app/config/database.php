@@ -55,8 +55,8 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => isset($_SERVER['DATABASE1_HOST']) ? $_SERVER['DATABASE1_HOST'] : 'localhost',
-			'database'  => isset($_SERVER['DATABASE1_USER']) ? $_SERVER['DATABASE1_USER'] : 'test',
-			'username'  => isset($_SERVER['DATABASE1_NAME']) ? $_SERVER['DATABASE1_NAME'] : 'root',
+			'database'  => isset($_SERVER['DATABASE1_NAME']) ? $_SERVER['DATABASE1_NAME'] : 'test',
+			'username'  => isset($_SERVER['DATABASE1_USER']) ? $_SERVER['DATABASE1_USER'] : 'root',
 			'password'  => isset($_SERVER['DATABASE1_PASS']) ? $_SERVER['DATABASE1_PASS'] : '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
