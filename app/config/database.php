@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'forge',
-			'username'  => 'forge',
-			'password'  => '',
+			'host'      => isset($_SERVER['DBI_HOST']) ? $_SERVER['DBI_HOST'] : 'localhost',
+			'database'  => isset($_SERVER['DBI_NAME']) ? $_SERVER['DBI_NAME'] : 'test',
+			'username'  => isset($_SERVER['DBI_USER']) ? $_SERVER['DBI_HOST'] : 'root',
+			'password'  => isset($_SERVER['DBI_PASS']) ? $_SERVER['DBI_PASS'] : '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
