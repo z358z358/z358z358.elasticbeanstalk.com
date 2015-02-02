@@ -15,17 +15,9 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function index()
 	{
-		return View::make('hello');
-	}
-
-	public function search()
-	{
-		$input = Input::get('search');
-		$results = Post::where('body', 'LIKE', '%'.$input.'%')->get();
-
-		return View::make('site.search')->with('results', $results);
+		return View::make('index/index');
 	}
 
 }

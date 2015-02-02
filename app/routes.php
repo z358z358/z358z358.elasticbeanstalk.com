@@ -10,7 +10,16 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('/', 'HomeController@index');
+Route::get('/ptt', 'PttController@index');
 
+Route::group(array('before' => 'csrf'), function(){
+
+	Route::post('/ptt', 'PttController@show');
+
+});
+
+/*
 Route::get('/', function()
 {
 	$posts = Post::orderBy('created_at', 'DESC')->paginate(3);
@@ -42,4 +51,4 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('logout', 'AuthController@logout');
 	Route::resource('posts', "PostController");
 
-});
+});*/
