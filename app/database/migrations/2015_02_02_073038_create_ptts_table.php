@@ -14,11 +14,11 @@ class CreatePttsTable extends Migration {
 	{
 		Schema::create('ptts', function(Blueprint $table)
 		{
-			$table->increments('id');
 			$table->string('pttUrl');
-			$table->string('title');
 			$table->text('content');
 			$table->timestamps();
+
+			$table->primary('pttUrl');
 		});
 	}
 

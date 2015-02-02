@@ -23,8 +23,8 @@
 </head>
 <body>
   @include('partials/nav')
-  <!-- container --> 
-  <div class="container"> 
+  <!-- container -->
+  <div class="container">
   <!-- Main component for a primary marketing message or call to action -->
   @yield('content')
   </div>
@@ -43,11 +43,27 @@
 
   </script>
 
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   @yield('js')
 
   <script>
+  function ajax_data(data){
+
+    if(data["type"] == "input_error"){
+      $("#" + data["tag_id"]).parents("div.form-group").addClass("has-error has-feedback").append('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+    }
+
+    if(data["type"] == "html"){
+      $("#" + data["tag_id"]).html(data["html"]);
+    }
+
+    if(data["type"] == "ptt_table"){
+      ptt_table(data);
+    }
+
+  }
+
   $(document).ready(function() {
     // ajax
     $("body").on("click" , ".ajax_post" , function(){

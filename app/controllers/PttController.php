@@ -47,9 +47,9 @@ class PttController extends \BaseController {
 	{
 		//
 		$ptt_url = Input::get('ptt_url');
-		$json = Ptt::whereRaw('pttUrl = ? and updated_at > ?' , [$ptt_url , time()] )->first();
-
-		if(!$json)
+		$ptt = Ptt::where('pttUrl' , '=' , $ptt_url)->first();
+//dd($ptt , strtotime($ptt->updated_at) < (time()-6));
+		if(!$ptt || strtotime($ptt->updated_at) < (time()-6) )
 		{
 			// Create a stream
 			$opts = array(
@@ -110,14 +110,22 @@ class PttController extends \BaseController {
 			}
 
 			// 塞回db
-			$ptt = new Ptt;
+			$ptt = ($ptt)? $ptt : new Ptt;
 			$ptt->pttUrl = $ptt_url;
 			$ptt->content = serialize($json);
+			unset($ptt->updated_at);
 			$ptt->save();
-
+		}
+		else
+		{
+			$json = unserialize($ptt->content);
+			$json['ptt_url'] = $ptt->pttUrl;
 		}
 
-		return Response::json($json);
+		$result['type'] = 'ptt_table';
+		$result['tag_id'] = 'ptt_result';
+		$result['data'] = $json;
+		return Response::json($result);
 
 	}
 

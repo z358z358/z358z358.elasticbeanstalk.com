@@ -82,7 +82,6 @@ google.load("visualization", "1", {packages:["corechart"]});
 google.load("visualization", "1", {packages:["table"]});
 
 function ptt_table(data){
-
 	var d = {};
 	d['t'] = {};
 	d['i'] = {};
@@ -199,5 +198,14 @@ function check_hash(url){
 
 $("#ptt_result").hide();
 check_hash();
+
+$('#ptt_nav a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+})
+
+$("#push_table input").change(function(){
+	  ptt_table(tmp_data);
+});
 
 @stop
