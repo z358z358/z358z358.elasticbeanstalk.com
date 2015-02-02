@@ -1,4 +1,4 @@
-@extends('layouts/master' , ['title' => '這裡是首頁'])
+@extends('layouts/master' , ['title' => '這裡是首頁' , 'action' => ''])
 
 @section('content')
 

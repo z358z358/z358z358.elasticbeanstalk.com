@@ -46,24 +46,27 @@ class PttController extends \BaseController {
 	public function show()
 	{
 		//
-		$json = [];
-		$url = Input::get('ptt_url');
-		$data = Ptt::whereRaw('pttUrl = ? and updated_at > ?' , [$url , time()-60] )->first();
+		$ptt_url = Input::get('ptt_url');
+		$json = Ptt::whereRaw('pttUrl = ? and updated_at > ?' , [$ptt_url , time()] )->first();
 
-		if(!$data)
+		if(!$json)
 		{
-			$rs = curl_init();
-			curl_setopt($rs, CURLOPT_URL, $url);
-			curl_setopt($rs, CURLOPT_COOKIE, 'over18=1');
-			curl_setopt($rs, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20120403211507 Firefox/12.0');
-			curl_setopt($rs, CURLOPT_TIMEOUT, 5);
-			curl_setopt($rs, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($rs, CURLOPT_FOLLOWLOCATION, 1);
-			$return_html = curl_exec($rs);
-			curl_close($rs);
-dd($return_html);
-			preg_match_all('#<div class="push"><span class="(.*?)">(.*?)</span><span class="(.*?)">(.*?)</span><span class="(.*?)">(.*?)</span><span class="(.*?)">(.*?)</span></div>#sm', $return_html, $match); 
+			// Create a stream
+			$opts = array(
+			  'http'=>array(
+			    'method'=>"GET",
+			    'header'=>"Accept-language: en\r\n" .
+			              "Cookie: over18=1"
+			  )
+			);
 
+			$context = stream_context_create($opts);
+
+			// Open the file using the HTTP headers set above
+			$return_html = file_get_contents($ptt_url, false, $context);
+
+			preg_match_all('#<div class="push"><span class="(.*?)">(.*?)</span><span class="(.*?)">(.*?)</span><span class="(.*?)">(.*?)</span><span class="(.*?)">(.*?)</span></div>#sm', $return_html, $match); 
+			$json = [];
 			$floor = 1;
 			preg_match("/<title>(.+)<\/title>/siU", $return_html, $matches);
 			$json['title'] = $matches[1];
@@ -73,7 +76,7 @@ dd($return_html);
 			foreach($match[4] as $ptt_id){
 				$array_no = $floor - 1;
 
-				$json['push'][$floor]['id'] = safe_word($ptt_id);
+				$json['push'][$floor]['id'] = preg_replace("/[^a-zA-Z0-9_]/", "", $ptt_id);
 				$json['push'][$floor]['type'] = str_replace(' ', '', $match[2][$array_no]);
 
 				// 刪掉冒號空白
@@ -108,11 +111,13 @@ dd($return_html);
 
 			// 塞回db
 			$ptt = new Ptt;
-			$ptt->pttUrl = $url;
+			$ptt->pttUrl = $ptt_url;
 			$ptt->content = serialize($json);
 			$ptt->save();
 
 		}
+
+		return Response::json($json);
 
 	}
 
