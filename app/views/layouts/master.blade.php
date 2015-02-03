@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <meta content="yes" name="apple-mobile-web-app-capable" />
 <meta name="Robots" content="all" />
-<title></title>
+<title>{{ $title }}</title>
 <link rel="shortcut icon" href="/img/icon.ico">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="//www.youtube.com/player_api"></script>
