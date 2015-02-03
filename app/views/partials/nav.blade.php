@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">首頁</a>
+        {{ HTML::link('/', '首頁' , ['class' => 'navbar-brand']) }}
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
