@@ -15,7 +15,7 @@
 <title></title>
 <link rel="shortcut icon" href="/img/icon.ico">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<script src="http://www.youtube.com/player_api"></script>
+<script src="//www.youtube.com/player_api"></script>
 <!-- Optional theme -->
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 

@@ -1,21 +1,40 @@
 <?php
 
-class Aaa extends \BaseController {
+class YoutubeController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /aaa
+	 * GET /youtube
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
 		//
+		$html_youtube = '';
+		$youtube_url = Input::get('youtube_url');
+		$youtube_url = filter_var($youtube_url, FILTER_VALIDATE_URL);
+		if($youtube_url)
+		{
+			$opts = array(
+			  'http'=>array(
+			    'method'=>"GET",
+			    'header'=>"Accept-language: en\r\n" .
+			              "Cookie: over18=1"
+			  )
+			);
+
+			$context = stream_context_create($opts);
+			$html_youtube = file_get_contents($youtube_url, false, $context);
+		}
+
+		// Open the file using the HTTP headers set above
+		return View::make('youtube.index')->with('html_youtube' , $html_youtube)->with('youtube_url' , $youtube_url);
 	}
 
 	/**
 	 * Show the form for creating a new resource.
-	 * GET /aaa/create
+	 * GET /youtube/create
 	 *
 	 * @return Response
 	 */
@@ -26,7 +45,7 @@ class Aaa extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 * POST /aaa
+	 * POST /youtube
 	 *
 	 * @return Response
 	 */
@@ -37,7 +56,7 @@ class Aaa extends \BaseController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /aaa/{id}
+	 * GET /youtube/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -49,7 +68,7 @@ class Aaa extends \BaseController {
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * GET /aaa/{id}/edit
+	 * GET /youtube/{id}/edit
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -61,7 +80,7 @@ class Aaa extends \BaseController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /aaa/{id}
+	 * PUT /youtube/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -73,7 +92,7 @@ class Aaa extends \BaseController {
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /aaa/{id}
+	 * DELETE /youtube/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
