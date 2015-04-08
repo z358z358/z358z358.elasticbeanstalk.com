@@ -54,10 +54,11 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => isset($_SERVER['DATABASE1_HOST']) ? $_SERVER['DATABASE1_HOST'] : 'localhost',
-			'database'  => isset($_SERVER['DATABASE1_NAME']) ? $_SERVER['DATABASE1_NAME'] : 'test',
-			'username'  => isset($_SERVER['DATABASE1_USER']) ? $_SERVER['DATABASE1_USER'] : 'root',
-			'password'  => isset($_SERVER['DATABASE1_PASS']) ? $_SERVER['DATABASE1_PASS'] : '',
+			'host'      => isset($_SERVER['RDS_HOSTNAME']) ? $_SERVER['RDS_HOSTNAME'] : 'localhost',
+			'port'		=> isset($_SERVER['RDS_PORT']) ? $_SERVER['RDS_PORT'] : 'localhost',
+			'database'  => isset($_SERVER['RDS_DB_NAME']) ? $_SERVER['RDS_DB_NAME'] : 'test',
+			'username'  => isset($_SERVER['DB_USERNAME']) ? $_SERVER['DB_USERNAME'] : 'root',
+			'password'  => isset($_SERVER['DB_PASSWORD']) ? $_SERVER['DB_PASSWORD'] : '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
