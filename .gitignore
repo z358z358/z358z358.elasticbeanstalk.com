@@ -5,4 +5,8 @@ composer.lock
 .env.*.php
 .env.php
 .DS_Store
-Thumbs.db
+Thumbs.db
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
